@@ -3,40 +3,124 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Choir Director's App</title>
+    <title>Obikhod Tones</title>
     <!-- Load Tailwind CSS from CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
-        /* Base fonts for the application */
-        @import url('https://fonts.googleapis.com/css2?family=EB+Garamond:wght@400;600;700&display=swap');
-        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap');
+        /* Classic medieval-style fonts */
+        @import url('https://fonts.googleapis.com/css2?family=Ruslan+Display&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Alegreya+SC:wght@400;700&display=swap');
         
         body {
-            /* Using a sans-serif for the main body for better readability on screens */
-            font-family: 'Inter', sans-serif;
-            background-color: #e5e7eb;
-            color: #1a1a1a;
-            /* Subtle Byzantine-inspired background pattern */
-            background-image: url("data:image/svg+xml,%3Csvg width='20' height='20' viewBox='0 0 20 20' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%23d1d5db' fill-opacity='0.4'%3E%3Cpath d='M0 16v-2h2v2H0zm2-4V8h2v4H2zm2-4V4h2v4H4zm2-4V0h2v4H6zm2 0h2v2H8V0zm2 0h2v4h-2V0zm2 4h2v4h-2V4zm2 4h2v4h-2V8zm2 4h2v2h-2v-2zm0 2h-2v2h2v-2zm-2 0h-2v2h2v-2zm-4 0h-2v2h2v-2zm-2 0h-2v2h2v-2zm-2 0H6v2H4v-2zm-2 0H2v2h2v-2z'%3E%3C/path%3E%3C/g%3E%3C/svg%3E");
-            background-repeat: repeat;
+            /* Deep, lacquered blue background with a subtle, repeating pattern */
+            background-color: #0f0d1a;
+            background-image: url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M50 0 L100 50 L50 100 L0 50 Z' fill='%231a1516' opacity='0.25'/%3E%3C/svg%3E");
+            background-size: 100px 100px;
+            color: #f1e0c5;
+            font-family: 'Alegreya SC', serif;
         }
+        
         .container-card {
-            background-color: rgba(255, 255, 255, 0.9);
-            border: 2px solid #a67c00;
+            background-color: #1a1516;
+            /* Ornamental border with multiple shadows for a more luxurious look */
+            border: 4px solid #8c2d2d; /* A rich, deep red border */
+            box-shadow: 
+                0 15px 30px rgba(0, 0, 0, 0.8), /* Darker shadow for depth */
+                0 0 0 6px #5c2222, /* The new ornamental crimson outer border */
+                inset 0 0 15px rgba(255, 204, 0, 0.4); /* Brighter inner gold glow */
         }
+
         .header-bg {
-            background-color: #581845;
-            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            background-color: #a33a3a;
+            border-bottom: 2px solid #5c2222;
+            box-shadow: inset 0 -4px 6px rgba(0, 0, 0, 0.5);
+        }
+        
+        .tone-button {
+            border: 2px solid #5c2d2d;
+            background-color: #8c2d2d; /* Rich crimson color */
+            color: #ffeb95; /* Brighter gold text color */
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
+            box-shadow: 
+                0 4px 6px rgba(0,0,0,0.3), /* Outer shadow */
+                inset 0 0 10px rgba(255, 204, 0, 0.4); /* Inner gold glow */
+        }
+        .tone-button:hover {
+            background-color: #a33a3a;
+        }
+        .tone-button:active {
+            box-shadow: 0 1px 2px rgba(0,0,0,0.3), inset 0 0 5px rgba(255, 204, 0, 0.4);
+            transform: translateY(2px);
         }
         .tone-button.selected {
-            @apply ring-4 ring-blue-500 ring-opacity-50;
+            background-color: #6a2424;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.3), inset 0 0 15px rgba(255, 204, 0, 0.8);
+            transform: none;
+            @apply ring-4 ring-yellow-400 ring-opacity-70;
         }
-        /* Custom styles for tab button appearance */
+
+        .tab-button {
+            background-color: #161314; /* Darker background to distinguish from container */
+            color: #7a7a7a; /* Subdued color for unselected text */
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+            /* Unselected tabs have side borders and a bottom border */
+            border-left: 2px solid #5c2222;
+            border-right: 2px solid #5c2222;
+            border-bottom: 2px solid #5c2222; 
+        }
         .tab-button.selected {
-            border-bottom: 4px solid #3b82f6; /* A stronger blue border for emphasis */
-            background-color: white;
-            box-shadow: inset 0 2px 4px 0 rgba(0,0,0,0.06);
-            color: #1e40af;
+            background-color: #2b5c49; /* A rich green to highlight the selected tab */
+            color: #ffeb95; /* Brighter gold text to contrast with green background */
+            /* No bottom border to blend with content area */
+            border-bottom: none;
+        }
+
+        /* Style for the content container based on the active tab */
+        #content-container {
+            transition: background-color 0.3s ease-in-out;
+            background-color: #1a1516; /* Default background */
+        }
+        #content-container.selected-stichera {
+            background-color: #2b5c49; /* Matches the Stichera selected tab */
+        }
+        #content-container.selected-troparion {
+            background-color: #2b5c49; /* Matches the Troparion selected tab */
+        }
+
+        /* Custom slider styles for an ornate look */
+        input[type=range] {
+            -webkit-appearance: none;
+            width: 100%;
+            background: transparent; /* Needed for Safari */
+        }
+
+        input[type=range]::-webkit-slider-runnable-track {
+            height: 8px;
+            background: #6a2424;
+            border: 1px solid #5c2222;
+            border-radius: 4px;
+            box-shadow: inset 0 0 5px rgba(0,0,0,0.5);
+        }
+
+        input[type=range]::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            border: 2px solid #ffcc00;
+            height: 18px;
+            width: 18px;
+            border-radius: 50%;
+            background: #a33a3a;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.5), inset 0 0 8px rgba(255,204,0,0.4);
+            margin-top: -6px; /* Center the thumb vertically on the track */
+            cursor: pointer;
+        }
+
+        input[type=range]:focus {
+            outline: none;
+        }
+        
+        #score-canvas {
+            background-color: #2b5c49;
+            min-height: 100px;
         }
     </style>
 </head>
@@ -44,179 +128,246 @@
 
 <div class="container-card rounded-xl shadow-2xl w-full max-w-3xl overflow-hidden">
     <!-- Header -->
-    <div class="p-6 header-bg text-white text-center border-b border-gold-400">
-        <!-- Using a serif font for the title for a liturgical feel -->
-        <h1 class="text-3xl font-bold mb-1 font-['EB Garamond']">Obikhod Tones</h1>
-        <p class="text-sm opacity-90 font-inter">An interactive tool for practicing liturgical tones.</p>
+    <div class="p-2 header-bg text-white text-center border-b border-gold-400">
+        <h1 class="text-xl font-bold font-['Ruslan Display'] text-yellow-500">Obikhod Tones</h1>
+        <p class="text-xs opacity-90 font-['Alegreya SC']">An interactive tool for practicing liturgical tones.</p>
     </div>
 
     <!-- Tab Buttons -->
-    <div class="flex border-b border-gray-200 bg-gray-100">
-        <button id="tab-stichera" class="tab-button flex-1 p-4 text-center font-semibold text-lg text-blue-800 transition-all duration-300 rounded-tl-xl hover:bg-gray-200">
+    <div class="flex">
+        <button id="tab-stichera" class="tab-button flex-1 p-4 text-center font-semibold text-lg transition-all duration-300 rounded-tl-xl" data-content-bg="selected-stichera">
             Stichera
         </button>
-        <button id="tab-troparion" class="tab-button flex-1 p-4 text-center font-semibold text-lg text-gray-500 transition-all duration-300 rounded-tr-xl hover:bg-gray-200">
+        <button id="tab-troparion" class="tab-button flex-1 p-4 text-center font-semibold text-lg transition-all duration-300 rounded-tr-xl" data-content-bg="selected-troparion">
             Troparion
         </button>
     </div>
 
     <!-- Tab Content -->
-    <div id="content-container" class="p-6">
+    <div id="content-container" class="p-4">
+        <!-- Musical Score Display on Canvas -->
+        <div class="flex justify-center mb-4">
+             <canvas id="score-canvas"></canvas>
+        </div>
+
+        <!-- Message box for user feedback -->
+        <div id="message-box" class="hidden p-4 mb-4 text-sm bg-red-800 text-red-200 rounded-lg border border-red-500" role="alert">
+            <span class="font-bold">Error:</span> Melody not found.
+        </div>
+        
         <!-- Stichera Content -->
-        <!-- Responsive grid: 2 columns on small screens, 4 on medium and up -->
         <div id="content-stichera" class="tab-content grid grid-cols-2 md:grid-cols-4 gap-4">
             <!-- Dynamically populated buttons -->
         </div>
 
         <!-- Troparion Content (hidden by default) -->
-        <!-- Responsive grid: 2 columns on small screens, 4 on medium and up -->
         <div id="content-troparion" class="tab-content hidden grid grid-cols-2 md:grid-cols-4 gap-4">
             <!-- Dynamically populated buttons -->
+        </div>
+
+        <!-- Tempo Slider -->
+        <div class="mt-4">
+            <label for="tempo-slider" class="block text-sm font-medium text-yellow-200">Tempo: <span id="tempo-value">120 BPM</span></label>
+            <input type="range" id="tempo-slider" min="60" max="240" value="120" step="10" class="w-full mt-2">
         </div>
     </div>
 </div>
 
 <script>
-    // --- State Management ---
+    // --- State Management and Data ---
+    // The Web Audio API context. Lazily initialized on first use.
     let audioContext = null;
+    // An array to keep track of all currently playing oscillator nodes so we can stop them.
     let playingSources = [];
+    // An array to keep track of all scheduled visual update timeouts.
+    let playingTimeouts = [];
+    // Stores the ID of the melody that's currently playing to toggle playback on re-click.
     let currentlyPlaying = null;
+    // Hardcoded musical data for the Obikhod tones.
     const melodies = {
         "stichera": {
-            "1": [
-                { "notes": ["G4", "Bb4"], "duration": 1.5 },
-                { "notes": ["G4", "Bb4"], "duration": 0.5 },
-                { "notes": ["G4", "Bb4"], "duration": 0.5 },
-                { "notes": ["E4", "G4"], "duration": 0.5 },
-                { "notes": ["F4", "A4"], "duration": 1.0 },
-                { "notes": ["F4", "A4"], "duration": 2.0 }
-            ],
-            "2": [
-                { "notes": ["G4", "Bb4"], "duration": 0.5 },
-                { "notes": ["G4", "Bb4"], "duration": 0.5 },
-                { "notes": ["Bb4", "D5"], "duration": 1.0 },
-                { "notes": ["A4", "C5"], "duration": 1.0 },
-                { "notes": ["G4", "Bb4"], "duration": 1.5 }
-            ],
-            "3": [
-                { "notes": ["F4", "A4"], "duration": 0.5 },
-                { "notes": ["F4", "A4"], "duration": 0.5 },
-                { "notes": ["F4", "A4"], "duration": 1.0 },
-                { "notes": ["E4", "G4"], "duration": 1.5 }
-            ],
-            "4": [
-                { "notes": ["E4", "G4"], "duration": 0.5 },
-                { "notes": ["E4", "G4"], "duration": 0.5 },
-                { "notes": ["F4", "A4"], "duration": 1.0 },
-                { "notes": ["F4", "A4"], "duration": 1.0 }
-            ],
-            "5": [
-                { "notes": ["G4", "Bb4"], "duration": 1.5 },
-                { "notes": ["G4", "Bb4"], "duration": 0.5 },
-                { "notes": ["G4", "Bb4"], "duration": 0.5 },
-                { "notes": ["A4", "C5"], "duration": 1.0 },
-                { "notes": ["F4", "A4"], "duration": 2.0 }
-            ],
-            "6": [
-                { "notes": ["E4", "G4"], "duration": 0.5 },
-                { "notes": ["E4", "G4"], "duration": 0.5 },
-                { "notes": ["D#4", "F#4"], "duration": 1.0 },
-                { "notes": ["E4", "G4"], "duration": 1.0 }
-            ],
-            "7": [
-                { "notes": ["E4", "G4"], "duration": 1.5 },
-                { "notes": ["F4", "A4"], "duration": 0.5 },
-                { "notes": ["G4", "Bb4"], "duration": 0.5 },
-                { "notes": ["G4", "Bb4"], "duration": 0.5 },
-                { "notes": ["F4", "A4"], "duration": 1.0 },
-                { "notes": ["E4", "G4"], "duration": 2.0 }
-            ],
-            "8": [
-                { "notes": ["F4", "A4"], "duration": 1.5 },
-                { "notes": ["E4", "G4"], "duration": 0.5 },
-                { "notes": ["E4", "G4"], "duration": 0.5 },
-                { "notes": ["F4", "A4"], "duration": 1.5 },
-                { "notes": ["E4", "G4"], "duration": 0.5 },
-                { "notes": ["D4", "F4"], "duration": 2.0 }
-            ]
+            "1": {
+                "key": "F_Major",
+                "melody": [
+                    { "notes": ["G4", "Bb4"], "duration": 3.0 },
+                    { "notes": ["G4", "Bb4"], "duration": 1.0 },
+                    { "notes": ["G4", "Bb4"], "duration": 1.0 },
+                    { "notes": ["E4", "G4"], "duration": 1.0 },
+                    { "notes": ["F4", "A4"], "duration": 2.0 },
+                    { "notes": ["F4", "A4"], "duration": 4.0 }
+                ]
+            },
+            "2": {
+                "key": "F_Major",
+                "melody": [
+                    { "notes": ["G4", "Bb4"], "duration": 1.0 },
+                    { "notes": ["G4", "Bb4"], "duration": 1.0 },
+                    { "notes": ["Bb4", "D5"], "duration": 2.0 },
+                    { "notes": ["A4", "C5"], "duration": 2.0 },
+                    { "notes": ["G4", "Bb4"], "duration": 3.0 }
+                ]
+            },
+            "3": {
+                "key": "F_Major",
+                "melody": [
+                    { "notes": ["F4", "A4"], "duration": 1.0 },
+                    { "notes": ["F4", "A4"], "duration": 1.0 },
+                    { "notes": ["F4", "A4"], "duration": 2.0 },
+                    { "notes": ["E4", "G4"], "duration": 3.0 }
+                ]
+            },
+            "4": {
+                "key": "F_Major",
+                "melody": [
+                    { "notes": ["E4", "G4"], "duration": 1.0 },
+                    { "notes": ["E4", "G4"], "duration": 1.0 },
+                    { "notes": ["F4", "A4"], "duration": 2.0 },
+                    { "notes": ["F4", "A4"], "duration": 2.0 }
+                ]
+            },
+            "5": {
+                "key": "F_Major",
+                "melody": [
+                    { "notes": ["G4", "Bb4"], "duration": 3.0 },
+                    { "notes": ["G4", "Bb4"], "duration": 1.0 },
+                    { "notes": ["G4", "Bb4"], "duration": 1.0 },
+                    { "notes": ["A4", "C5"], "duration": 2.0 },
+                    { "notes": ["F4", "A4"], "duration": 4.0 }
+                ]
+            },
+            "6": {
+                "key": "G_Major",
+                "melody": [
+                    { "notes": ["E4", "G4"], "duration": 1.0 },
+                    { "notes": ["E4", "G4"], "duration": 1.0 },
+                    { "notes": ["D#4", "F#4"], "duration": 2.0 },
+                    { "notes": ["E4", "G4"], "duration": 2.0 }
+                ]
+            },
+            "7": {
+                "key": "F_Major",
+                "melody": [
+                    { "notes": ["E4", "G4"], "duration": 3.0 },
+                    { "notes": ["F4", "A4"], "duration": 1.0 },
+                    { "notes": ["G4", "Bb4"], "duration": 1.0 },
+                    { "notes": ["G4", "Bb4"], "duration": 1.0 },
+                    { "notes": ["F4", "A4"], "duration": 2.0 },
+                    { "notes": ["E4", "G4"], "duration": 4.0 }
+                ]
+            },
+            "8": {
+                "key": "F_Major",
+                "melody": [
+                    { "notes": ["F4", "A4"], "duration": 3.0 },
+                    { "notes": ["E4", "G4"], "duration": 1.0 },
+                    { "notes": ["E4", "G4"], "duration": 1.0 },
+                    { "notes": ["F4", "A4"], "duration": 3.0 },
+                    { "notes": ["E4", "G4"], "duration": 1.0 },
+                    { "notes": ["D4", "F4"], "duration": 4.0 }
+                ]
+            }
         },
         "troparion": {
-            "1": [
-                { "notes": ["C4", "F4"], "duration": 0.5 },
-                { "notes": ["C4", "F4"], "duration": 0.5 },
-                { "notes": ["E4", "G4"], "duration": 1.0 },
-                { "notes": ["F4", "A4"], "duration": 1.0 }
-            ],
-            "2": [
-                { "notes": ["F4", "A4"], "duration": 0.5 },
-                { "notes": ["F4", "Bb4"], "duration": 0.5 },
-                { "notes": ["F4", "C5"], "duration": 1.0 },
-                { "notes": ["F4", "Bb4"], "duration": 1.0 },
-                { "notes": ["F4", "A4"], "duration": 1.0 }
-            ],
-            "3": [
-                { "notes": ["B3", "E4"], "duration": 0.5 },
-                { "notes": ["D4", "F#4"], "duration": 0.5 },
-                { "notes": ["D4", "G4"], "duration": 0.5 },
-                { "notes": ["D4", "F#4"], "duration": 0.5 },
-                { "notes": ["D4", "G4"], "duration": 0.5 },
-                { "notes": ["F#4", "A4"], "duration": 0.5 },
-                { "notes": ["G4", "B4"], "duration": 1.0 }
-            ],
-            "4": [
-                { "notes": ["F4", "A4"], "duration": 1.0 },
-                { "notes": ["F4", "A4"], "duration": 0.5 },
-                { "notes": ["G4", "Bb4"], "duration": 0.5 },
-                { "notes": ["G4", "Bb4"], "duration": 0.5 },
-                { "notes": ["F#4", "A4"], "duration": 1.0 }
-            ],
-            "5": [
-                { "notes": ["F#4", "A4"], "duration": 1.0 },
-                { "notes": ["F#4", "A4"], "duration": 0.5 },
-                { "notes": ["F#4", "A4"], "duration": 0.5 },
-                { "notes": ["G4", "B4"], "duration": 1.0 },
-                { "notes": ["D4", "G4"], "duration": 0.5 },
-                { "notes": ["D4", "G4"], "duration": 0.5 },
-                { "notes": ["D4", "G4"], "duration": 1.0 }
-            ],
-            "6": [
-                { "notes": ["C4", "F4"], "duration": 0.5 },
-                { "notes": ["C4", "F4"], "duration": 0.5 },
-                { "notes": ["C4", "F4"], "duration": 0.5 },
-                { "notes": ["C4", "G4"], "duration": 0.5 },
-                { "notes": ["F4", "A4"], "duration": 1.0 },
-                { "notes": ["F4", "A4"], "duration": 0.5 },
-                { "notes": ["F4", "A4"], "duration": 0.5 },
-                { "notes": ["F4", "A4"], "duration": 0.5 },
-                { "notes": ["F#4", "A4"], "duration": 0.5 },
-                { "notes": ["D4", "G4"], "duration": 1.5 }
-            ],
-            "7": [
-                { "notes": ["F4", "A4"], "duration": 0.5 },
-                { "notes": ["F4", "A4"], "duration": 0.5 },
-                { "notes": ["F4", "Bb4"], "duration": 0.5 },
-                { "notes": ["F4", "A4"], "duration": 0.5 },
-                { "notes": ["D4", "G4"], "duration": 0.5 },
-                { "notes": ["D4", "G4"], "duration": 0.5 },
-                { "notes": ["D4", "G4"], "duration": 0.5 },
-                { "notes": ["D4", "G4"], "duration": 0.5 },
-                { "notes": ["F4", "A4"], "duration": 0.5 },
-                { "notes": ["F4", "Bb4"], "duration": 0.5 }
-            ],
-            "8": [
-                { "notes": ["D4", "G4"], "duration": 0.5 },
-                { "notes": ["F#4", "A4"], "duration": 0.5 },
-                { "notes": ["G4", "B4"], "duration": 0.5 },
-                { "notes": ["G4", "C5"], "duration": 0.5 },
-                { "notes": ["G4", "C5"], "duration": 0.5 },
-                { "notes": ["G4", "C5"], "duration": 0.5 },
-                { "notes": ["G4", "B4"], "duration": 0.5 },
-                { "notes": ["G4", "B4"], "duration": 0.5 },
-                { "notes": ["F#4", "A4"], "duration": 1.0 },
-                { "notes": ["F#4", "A4"], "duration": 0.5 },
-                { "notes": ["F#4", "A4"], "duration": 0.5 },
-                { "notes": ["D4", "G4"], "duration": 1.0 }
-            ]
+            "1": {
+                "key": "F_Major",
+                "melody": [
+                    { "notes": ["C4", "F4"], "duration": 1.0 },
+                    { "notes": ["C4", "F4"], "duration": 1.0 },
+                    { "notes": ["E4", "G4"], "duration": 2.0 },
+                    { "notes": ["F4", "A4"], "duration": 2.0 }
+                ]
+            },
+            "2": {
+                "key": "F_Major",
+                "melody": [
+                    { "notes": ["F4", "A4"], "duration": 1.0 },
+                    { "notes": ["F4", "Bb4"], "duration": 1.0 },
+                    { "notes": ["F4", "C5"], "duration": 2.0 },
+                    { "notes": ["F4", "Bb4"], "duration": 2.0 },
+                    { "notes": ["F4", "A4"], "duration": 2.0 }
+                ]
+            },
+            "3": {
+                "key": "G_Major",
+                "melody": [
+                    { "notes": ["B3", "E4"], "duration": 1.0 },
+                    { "notes": ["D4", "F#4"], "duration": 1.0 },
+                    { "notes": ["D4", "G4"], "duration": 1.0 },
+                    { "notes": ["D4", "F#4"], "duration": 1.0 },
+                    { "notes": ["D4", "G4"], "duration": 1.0 },
+                    { "notes": ["F#4", "A4"], "duration": 1.0 },
+                    { "notes": ["G4", "B4"], "duration": 2.0 }
+                ]
+            },
+            "4": {
+                "key": "F_Major",
+                "melody": [
+                    { "notes": ["F4", "A4"], "duration": 2.0 },
+                    { "notes": ["F4", "A4"], "duration": 1.0 },
+                    { "notes": ["G4", "Bb4"], "duration": 1.0 },
+                    { "notes": ["G4", "Bb4"], "duration": 1.0 },
+                    { "notes": ["F#4", "A4"], "duration": 2.0 }
+                ]
+            },
+            "5": {
+                "key": "G_Major",
+                "melody": [
+                    { "notes": ["F#4", "A4"], "duration": 2.0 },
+                    { "notes": ["F#4", "A4"], "duration": 1.0 },
+                    { "notes": ["F#4", "A4"], "duration": 1.0 },
+                    { "notes": ["G4", "B4"], "duration": 2.0 },
+                    { "notes": ["D4", "G4"], "duration": 1.0 },
+                    { "notes": ["D4", "G4"], "duration": 1.0 },
+                    { "notes": ["D4", "G4"], "duration": 2.0 }
+                ]
+            },
+            "6": {
+                "key": "F_Major",
+                "melody": [
+                    { "notes": ["C4", "F4"], "duration": 1.0 },
+                    { "notes": ["C4", "F4"], "duration": 1.0 },
+                    { "notes": ["C4", "F4"], "duration": 1.0 },
+                    { "notes": ["C4", "G4"], "duration": 1.0 },
+                    { "notes": ["F4", "A4"], "duration": 2.0 },
+                    { "notes": ["F4", "A4"], "duration": 1.0 },
+                    { "notes": ["F4", "A4"], "duration": 1.0 },
+                    { "notes": ["F4", "A4"], "duration": 1.0 },
+                    { "notes": ["F#4", "A4"], "duration": 1.0 },
+                    { "notes": ["D4", "G4"], "duration": 3.0 }
+                ]
+            },
+            "7": {
+                "key": "F_Major",
+                "melody": [
+                    { "notes": ["F4", "A4"], "duration": 1.0 },
+                    { "notes": ["F4", "A4"], "duration": 1.0 },
+                    { "notes": ["F4", "Bb4"], "duration": 1.0 },
+                    { "notes": ["F4", "A4"], "duration": 1.0 },
+                    { "notes": ["D4", "G4"], "duration": 1.0 },
+                    { "notes": ["D4", "G4"], "duration": 1.0 },
+                    { "notes": ["D4", "G4"], "duration": 1.0 },
+                    { "notes": ["D4", "G4"], "duration": 1.0 },
+                    { "notes": ["F4", "A4"], "duration": 1.0 },
+                    { "notes": ["F4", "Bb4"], "duration": 2.0 }
+                ]
+            },
+            "8": {
+                "key": "G_Major",
+                "melody": [
+                    { "notes": ["D4", "G4"], "duration": 1.0 },
+                    { "notes": ["F#4", "A4"], "duration": 1.0 },
+                    { "notes": ["G4", "B4"], "duration": 1.0 },
+                    { "notes": ["G4", "C5"], "duration": 1.0 },
+                    { "notes": ["G4", "C5"], "duration": 1.0 },
+                    { "notes": ["G4", "C5"], "duration": 1.0 },
+                    { "notes": ["G4", "B4"], "duration": 1.0 },
+                    { "notes": ["G4", "B4"], "duration": 1.0 },
+                    { "notes": ["F#4", "A4"], "duration": 2.0 },
+                    { "notes": ["F#4", "A4"], "duration": 1.0 },
+                    { "notes": ["F#4", "A4"], "duration": 1.0 },
+                    { "notes": ["D4", "G4"], "duration": 2.0 }
+                ]
+            }
         }
     };
 
@@ -229,29 +380,47 @@
         stichera: document.getElementById('content-stichera'),
         troparion: document.getElementById('content-troparion'),
     };
+    const messageBox = document.getElementById('message-box');
+    const contentContainer = document.getElementById('content-container');
+    const tempoSlider = document.getElementById('tempo-slider');
+    const tempoValueSpan = document.getElementById('tempo-value');
+    const scoreCanvas = document.getElementById('score-canvas');
+    const ctx = scoreCanvas.getContext('2d');
+    
+    // Map of musical notes to their vertical position on the treble clef staff
+    const noteMap = {
+        'C3': 13, 'D3': 12, 'E3': 11, 'F3': 10, 'G3': 9, 'A3': 8, 'B3': 7,
+        'C4': 6, 'D4': 5, 'D#4': 5, 'E4': 4, 'F4': 3, 'F#4': 3, 'G4': 2, 'A4': 1, 'A#4': 1, 'B4': 0, 'Bb4': 0,
+        'C5': -1, 'D5': -2, 'E5': -3, 'F5': -4, 'F#5': -4, 'G5': -5, 'A5': -6, 'B5': -7
+    };
 
-    // --- Utility Functions ---
-    // This function normalizes flat notes to their sharp equivalents.
-    function normalizeNote(note) {
-        if (note.includes('b')) {
-            switch (note[0]) {
-                case 'B': return `A#${note.slice(-1)}`;
-                case 'E': return `D#${note.slice(-1)}`;
-                case 'A': return `G#${note.slice(-1)}`;
-                case 'D': return `C#${note.slice(-1)}`;
-                case 'G': return `F#${note.slice(-1)}`;
-                default: return note;
-            }
-        }
-        return note;
-    }
+    const accidentalMap = {
+        '#': '♯',
+        'b': '♭',
+        '': '♮' // Natural sign for explicitly canceling an accidental
+    };
+    
+    // Updated key signature map to correctly place sharps and flats
+    const keySignatureMap = {
+        "C_Major": { sharps: [], flats: [] },
+        "F_Major": { sharps: [], flats: ["Bb4"] },
+        "G_Major": { sharps: ["F#5"], flats: [] }
+    };
 
+    // --- Utility Functions for Audio and Canvas ---
     function getFrequency(note) {
         if (note === 'R') return 0;
-        const normalizedNote = normalizeNote(note);
+        
+        // Convert flat notes to their enharmonic sharp equivalents for consistent lookup
+        const flatToSharp = { 'Db': 'C#', 'Eb': 'D#', 'Gb': 'F#', 'Ab': 'G#', 'Bb': 'A#' };
+        let noteName = note.slice(0, -1);
+        const octave = parseInt(note.slice(-1));
+
+        if (flatToSharp[noteName]) {
+            noteName = flatToSharp[noteName];
+        }
+
         const notes = ["C", "C#", "D", "D#", "E", "F", "F#", "G", "G#", "A", "A#", "B"];
-        const octave = parseInt(normalizedNote.slice(-1));
-        const noteName = normalizedNote.slice(0, -1);
         const semitonesFromA4 = (octave - 4) * 12 + (notes.indexOf(noteName) - 9);
         return 440 * Math.pow(2, semitonesFromA4 / 12);
     }
@@ -261,25 +430,46 @@
             try { source.stop(); } catch (e) {}
         });
         playingSources = [];
+
+        playingTimeouts.forEach(id => clearTimeout(id));
+        playingTimeouts = [];
+
         currentlyPlaying = null;
         document.querySelectorAll('.tone-button').forEach(btn => btn.classList.remove('selected'));
+        // Clear all highlighted notes
+        drawScore([], null, -1); // Redraw with no highlighted note
     }
 
-    function playMelody(melody) {
+    function playMelody(melody, melodyId) {
         if (!audioContext) audioContext = new (window.AudioContext || window.webkitAudioContext)();
         let startTime = audioContext.currentTime;
+        const noteDuration = 60 / parseFloat(tempoSlider.value);
         
-        melody.forEach(item => {
-            if (item.note === 'R') {
-                startTime += item.duration;
-            } else {
-                const notesToPlay = item.notes ? item.notes : [item.note];
+        melody.forEach((item, index) => {
+            const scaledDuration = item.duration * noteDuration;
+            
+            // Schedule the note to play
+            if (item.notes) {
+                const notesToPlay = item.notes;
                 notesToPlay.forEach(noteName => {
                     const frequency = getFrequency(noteName);
-                    playNote(frequency, item.duration, startTime);
+                    playNote(frequency, scaledDuration, startTime);
                 });
-                startTime += item.duration;
             }
+            
+            // Schedule the visual update
+            const timeoutId = setTimeout(() => {
+                // Only draw the score if this is still the currently playing melody
+                if (currentlyPlaying === melodyId) {
+                    const [type, tone] = melodyId.split('-');
+                    const key = melodies[type][tone].key;
+                    drawScore(melody, key, index);
+                }
+            }, (startTime - audioContext.currentTime) * 1000);
+            
+            playingTimeouts.push(timeoutId);
+            
+            startTime += scaledDuration;
         });
     }
 
@@ -291,32 +481,199 @@
         gainNode.connect(audioContext.destination);
         oscillator.type = 'sine';
         oscillator.frequency.value = frequency;
+
         gainNode.gain.setValueAtTime(0, time);
         gainNode.gain.linearRampToValueAtTime(0.5, time + 0.05);
         gainNode.gain.linearRampToValueAtTime(0, time + duration);
+
         oscillator.start(time);
         oscillator.stop(time + duration);
         playingSources.push(oscillator);
     }
+    
+    function drawScore(melody, key, highlightedIndex) {
+        // Clear canvas
+        ctx.clearRect(0, 0, scoreCanvas.width, scoreCanvas.height);
+    
+        const staffY = scoreCanvas.height / 2; // Center the staff vertically
+        const staffSpacing = 10;
+        const noteRadius = 6;
+        let xOffset = 20;
+    
+        // Draw staff lines
+        ctx.strokeStyle = '#d1b464';
+        ctx.lineWidth = 1;
+        for (let i = -2; i <= 2; i++) {
+            ctx.beginPath();
+            ctx.moveTo(0, staffY + i * staffSpacing);
+            ctx.lineTo(scoreCanvas.width, staffY + i * staffSpacing);
+            ctx.stroke();
+        }
+    
+        // Draw Treble Clef symbol
+        ctx.font = '50px Arial'; // Smaller font size for the clef
+        ctx.fillStyle = '#d1b464';
+        ctx.fillText('𝄞', xOffset, staffY + 18); // Adjusted vertical position
+    
+        // Adjust the x-offset to create more space after the clef
+        xOffset += 35; // Smaller offset
+    
+        // --- Core Logic for Accidental Drawing ---
+        const accidentalState = {};
+        const notePitchClasses = ['C', 'D', 'E', 'F', 'G', 'A', 'B'];
+    
+        // Initialize accidental state for all notes with their key signature status.
+        notePitchClasses.forEach(note => {
+            let keySigAccidental = '';
+            if (key && keySignatureMap[key]) {
+                const sharps = keySignatureMap[key].sharps.map(s => s[0]);
+                const flats = keySignatureMap[key].flats.map(f => f[0]);
+                if (sharps.includes(note)) {
+                    keySigAccidental = '#';
+                } else if (flats.includes(note)) {
+                    keySigAccidental = 'b';
+                }
+            }
+            accidentalState[note] = keySigAccidental;
+        });
+    
+        // Draw key signature
+        if (key && keySignatureMap[key]) {
+            const keySig = keySignatureMap[key];
+            ctx.font = '20px Arial';
+            
+            // Draw sharps
+            keySig.sharps.forEach(note => {
+                const position = noteMap[note];
+                ctx.fillText(accidentalMap['#'], xOffset, staffY + (position * staffSpacing) / 2 + 5);
+                xOffset += 12;
+            });
+            
+            // Draw flats
+            keySig.flats.forEach(note => {
+                const position = noteMap[note];
+                ctx.fillText(accidentalMap['b'], xOffset, staffY + (position * staffSpacing) / 2 + 5);
+                xOffset += 12;
+            });
+            xOffset += 15;
+        }
+    
+        // Calculate dynamic note spacing
+        const numItems = melody.length;
+        const availableWidth = scoreCanvas.width - xOffset - 10;
+        const noteSpacing = numItems > 0 ? availableWidth / numItems : 30;
+        
+        // Draw notes
+        melody.forEach((item, index) => {
+            const notes = item.notes;
+            const isHighlighted = index === highlightedIndex;
+            const noteColor = isHighlighted ? '#ffeb95' : '#d1b464';
+            ctx.fillStyle = noteColor;
+            ctx.strokeStyle = noteColor;
+    
+            notes.forEach(note => {
+                // Determine base note, explicit accidental, and octave
+                const noteRegex = /^([A-G])([#b]?)([0-9])$/;
+                const match = note.match(noteRegex);
+                if (!match) return; // Skip if format is invalid
+                
+                const baseNoteName = match[1];
+                const explicitAccidental = match[2];
+                const fullNoteName = note;
+                
+                // Only draw an accidental if it's different from the current accidental state for that note.
+                if (explicitAccidental !== accidentalState[baseNoteName]) {
+                    const symbolToDraw = accidentalMap[explicitAccidental] || accidentalMap[''];
+                    ctx.font = '20px Arial';
+                    ctx.fillText(symbolToDraw, xOffset + index * noteSpacing - 15, staffY + (noteMap[fullNoteName] * staffSpacing) / 2 + 6);
+                    accidentalState[baseNoteName] = explicitAccidental;
+                }
+    
+                const currentX = xOffset + index * noteSpacing;
+                const notePosition = noteMap[fullNoteName];
+                const y = staffY + (notePosition * staffSpacing) / 2;
+                
+                // Determine note style based on duration
+                const duration = item.duration;
+                let isFilled = true;
+                let drawStem = true;
+    
+                if (duration === 4.0) { // Whole note
+                    isFilled = false;
+                    drawStem = false;
+                } else if (duration === 2.0 || duration === 3.0) { // Half note or dotted half note
+                    isFilled = false;
+                }
+                
+                // Draw note head
+                ctx.beginPath();
+                if (duration === 4.0) {
+                    // Whole note is an oval
+                    const wholeNoteWidth = 15;
+                    const wholeNoteHeight = 10;
+                    ctx.ellipse(currentX, y, wholeNoteWidth / 2, wholeNoteHeight / 2, 0, 0, 2 * Math.PI);
+                    ctx.lineWidth = 1.5;
+                    ctx.stroke();
+                } else {
+                    // Quarter, half, or dotted notes are circles
+                    ctx.arc(currentX, y, noteRadius, 0, 2 * Math.PI);
+                    if (isFilled) {
+                        ctx.fill();
+                    } else {
+                        ctx.lineWidth = 1.5;
+                        ctx.stroke();
+                    }
+                }
+    
+                // Draw stem
+                if (drawStem) {
+                    ctx.beginPath();
+                    ctx.lineWidth = 1;
+                    ctx.moveTo(currentX + noteRadius, y);
+                    ctx.lineTo(currentX + noteRadius, y - 25);
+                    ctx.stroke();
+                }
 
+                // Draw dot for dotted notes
+                if (duration === 1.5 || duration === 3.0) {
+                    ctx.beginPath();
+                    ctx.arc(currentX + 10, y + 4, 2, 0, 2 * Math.PI);
+                    ctx.fill();
+                }
+    
+                // Draw ledger lines
+                if (notePosition > 5 || notePosition < -2) {
+                    ctx.strokeStyle = noteColor;
+                    ctx.lineWidth = 1;
+                    const ledgerLineY = y;
+                    ctx.beginPath();
+                    ctx.moveTo(currentX - 10, ledgerLineY);
+                    ctx.lineTo(currentX + 10, ledgerLineY);
+                    ctx.stroke();
+                }
+            });
+        });
+    }
+    
     // --- Event Handlers ---
     function handleToneButtonClick(event) {
         const tone = event.target.dataset.tone;
-        const type = event.target.dataset.type;
+        const type = event.target.dataset.dataset;
         const melodyId = `${type}-${tone}`;
-        const melody = melodies[type][tone];
+        const toneData = melodies[type][tone];
         
-        // If the same melody is currently playing, stop it.
         if (currentlyPlaying === melodyId) {
             stopPlayback();
         } else {
-            // Otherwise, stop any existing playback and start the new one.
             stopPlayback();
             event.target.classList.add('selected');
             currentlyPlaying = melodyId;
-            if (melody) {
-                playMelody(melody);
+            if (toneData && toneData.melody) {
+                drawScore(toneData.melody, toneData.key, -1);
+                playMelody(toneData.melody, melodyId);
+                messageBox.classList.add('hidden');
             } else {
+                messageBox.classList.remove('hidden');
                 console.warn(`Melody for ${type} Tone ${tone} not found.`);
             }
         }
@@ -324,17 +681,14 @@
 
     // --- Dynamic UI Generation ---
     function renderMelodyButtons() {
-        // Clear existing buttons
         contents.stichera.innerHTML = '';
         contents.troparion.innerHTML = '';
 
-        // Render Stichera buttons
         for (const tone in melodies.stichera) {
             const button = createButton('stichera', tone);
             contents.stichera.appendChild(button);
         }
 
-        // Render Troparion buttons
         for (const tone in melodies.troparion) {
             const button = createButton('troparion', tone);
             contents.troparion.appendChild(button);
@@ -343,50 +697,82 @@
 
     function createButton(type, tone) {
         const button = document.createElement('button');
-        button.classList.add('tone-button', 'transition-all', 'duration-200', 'p-4', 'rounded-lg', 'font-bold', 'shadow-md', 'transform', 'hover:scale-105');
+        button.classList.add('tone-button', 'transition-all', 'duration-200', 'p-4', 'rounded-sm', 'font-bold');
         button.dataset.tone = tone;
-        button.dataset.type = type;
-        button.textContent = `${type.charAt(0).toUpperCase() + type.slice(1)} Tone ${tone}`;
+        button.dataset.dataset = type;
+        button.textContent = `Tone ${tone}`;
         button.addEventListener('click', handleToneButtonClick);
         
-        if (type === 'stichera') {
-            button.classList.add('bg-blue-100', 'text-blue-800', 'hover:bg-blue-200');
-        } else if (type === 'troparion') {
-            button.classList.add('bg-amber-100', 'text-amber-800', 'hover:bg-amber-200');
-        }
         return button;
     }
-
+    
     // --- Initialization ---
     document.addEventListener('DOMContentLoaded', () => {
         renderMelodyButtons();
 
-        // Tab switching logic
         tabs.stichera.addEventListener('click', () => switchTab('stichera'));
         tabs.troparion.addEventListener('click', () => switchTab('troparion'));
         
-        // Initial switch to Stichera tab
         switchTab('stichera');
+
+        // Set initial canvas size
+        const parent = scoreCanvas.parentElement;
+        scoreCanvas.width = parent.clientWidth;
+        scoreCanvas.height = 100;
+
+        // Redraw on resize
+        const resizeObserver = new ResizeObserver(entries => {
+            for (let entry of entries) {
+                if (entry.target === scoreCanvas) {
+                    const parent = entry.target.parentElement;
+                    scoreCanvas.width = parent.clientWidth;
+                    // Redraw the score
+                    const activeTabId = tabs.stichera.classList.contains('selected') ? 'stichera' : 'troparion';
+                    const activeTone = document.querySelector('.tone-button.selected')?.dataset.tone;
+                    if (activeTone) {
+                        drawScore(melodies[activeTabId][activeTone].melody, melodies[activeTabId][activeTone].key, -1);
+                    } else {
+                        drawScore([], null, -1);
+                    }
+                }
+            }
+        });
+        resizeObserver.observe(scoreCanvas);
+
+        // Update BPM display when slider value changes
+        tempoSlider.addEventListener('input', (event) => {
+            const bpm = parseInt(event.target.value);
+            tempoValueSpan.textContent = `${bpm} BPM`;
+        });
     });
 
     function switchTab(activeTabId) {
         stopPlayback();
-        // Hide all content divs first
+        messageBox.classList.add('hidden');
+        drawScore([], null, -1); // Clear score when switching tabs
+
+        // Reset content container background
+        contentContainer.classList.remove('selected-stichera', 'selected-troparion');
+
         for (const id in contents) {
             if (contents[id]) {
                 contents[id].classList.add('hidden');
             }
         }
-        // Show the selected content div
+
         if (contents[activeTabId]) {
             contents[activeTabId].classList.remove('hidden');
         }
 
-        // Update tab button styles
+        // Reset tab styling
         tabs.stichera.classList.remove('selected');
         tabs.troparion.classList.remove('selected');
+
+        // Apply new styles
         tabs[activeTabId].classList.add('selected');
+        contentContainer.classList.add(`selected-${activeTabId}`);
     }
 </script>
 </body>
 </html>
+
